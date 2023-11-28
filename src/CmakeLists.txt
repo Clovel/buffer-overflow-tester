@@ -1,0 +1,32 @@
+#
+#                     Copyright (C) 2020 Clovis Durand
+#
+# -----------------------------------------------------------------------------
+
+# Include directories -------------------------------------
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/buffer_overflow/include
+)
+
+# Subdirectories ------------------------------------------
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/buffer_overflow)
+
+# Source files --------------------------------------------
+file(GLOB_RECURSE PUBLIC_HEADERS
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/*.hpp
+)
+set(SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/main.c
+)
+
+# Executables ---------------------------------------------
+add_executable(${CMAKE_PROJECT_NAME}-bin
+    ${SOURCES}
+)
+add_dependencies(${CMAKE_PROJECT_NAME}-bin
+    ${CMAKE_PROJECT_NAME}BufferOverflow
+)
+target_link_libraries(${CMAKE_PROJECT_NAME}-bin
+    ${CMAKE_PROJECT_NAME}BufferOverflow
+)
